@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.lista_noticias, name='index'),
     path('<int:noticia_id>/', views.detalhe, name='detail'),
     path('busca/', views.busca_noticias, name='search'),
+    path('criar/', views.cria_noticia, name='create'),
 ]
 
 '''

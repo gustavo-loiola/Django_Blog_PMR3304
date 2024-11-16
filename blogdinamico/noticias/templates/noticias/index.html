@@ -2,7 +2,10 @@
 
 {% block content %}
 
-<h2>Últimas Notícias</h2>
+<div class="header-noticias">
+    <h2>Últimas Notícias</h2>
+    <a href="{% url 'noticias:create' %}" class="botao-criar">Publicar Notícia</a>
+</div>
 
 {% if lista_noticias %}
 <section class="lista-de-cards">
