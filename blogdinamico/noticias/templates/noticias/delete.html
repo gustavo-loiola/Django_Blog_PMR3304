@@ -3,9 +3,9 @@
 {% block content %}
 <div class="form-container">
     <h2>Excluir Notícia</h2>
-    <p>Tem certeza de que deseja excluir a notícia "<strong>{{ noticia.titulo }}</strong>"?</p>
+    <p>Tem certeza de que deseja excluir a notícia "<strong>{{ object.titulo }}</strong>"?</p>
     
-    <form action="{% url 'noticias:excluir' noticia.id %}" method="post">
+    <form action="{% url 'noticias:excluir' object.id %}" method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
         <a href="{% url 'noticias:listar' %}" class="btn btn-secondary">Cancelar</a>

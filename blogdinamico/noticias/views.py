@@ -1,4 +1,4 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -46,7 +46,7 @@ class CriarNoticiaView(CreateView):
 class AtualizarNoticiaView(UpdateView):
     model = Noticia
     form_class = NoticiaForm
-    template_name = 'noticias/atualizar_noticia.html'
+    template_name = 'noticias/update.html'
 
     def form_valid(self, form):
         messages.success(self.request, "Notícia atualizada com sucesso!")
@@ -58,7 +58,7 @@ class AtualizarNoticiaView(UpdateView):
 # View para excluir uma notícia com confirmação
 class ExcluirNoticiaView(DeleteView):
     model = Noticia
-    template_name = 'noticias/excluir_noticia.html'
+    template_name = 'noticias/delete.html'
     success_url = reverse_lazy('noticias:listar')
 
     def delete(self, request, *args, **kwargs):
