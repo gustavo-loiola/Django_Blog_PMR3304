@@ -1,0 +1,35 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+<h2>Últimas Notícias</h2>
+
+{% if lista_noticias %}
+<section class="lista-de-cards">
+  {% for noticia in lista_noticias %}
+  <article class="card">
+    <a href="{% url 'noticias:detalhe' noticia.id %}">
+      <img src="{{ noticia.noticia_url }}" alt="Imagem da Notícia: {{ noticia.titulo }}" />
+    </a>
+    <div class="conteudo-card">
+      <a href="{% url 'noticias:detalhe' noticia.id %}">
+        <h3>{{ noticia.titulo }}</h3>
+      </a>
+      <p class="data-publicacao">
+        Publicado em {{ noticia.data|date:"d/m/Y" }} — {{ noticia.data|timesince }} atrás
+      </p>
+
+      <div class="categorias">
+        {% for categoria in noticia.categorias.all|slice:":3" %}
+          <span class="categoria">{{ categoria.nome }}</span>{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </article>
+  {% endfor %}
+</section>
+{% else %}
+<p>Nenhuma notícia foi encontrada.</p>
+{% endif %} 
+
+{% endblock content %}
