@@ -12,10 +12,14 @@ def lista_noticias(request):
     return render(request, 'noticias/index.html', context)
 
 def busca_noticias(request):
-    context = {}
-    query = request.GET.get('query', '').lower()  # Obtém a query em minúsculas para busca insensível a maiúsculas/minúsculas
+    query = request.GET.get('query', '').lower()  # Obtém a query, converte para minúsculas para busca insensível
+    noticias_encontradas = []
     if query:
         noticias = obter_noticias()
         noticias_encontradas = [noticia for noticia in noticias if query in noticia.titulo.lower()]
-        context['lista_noticias'] = noticias_encontradas
-    return render(request, 'noticias/index.html', context)
+
+    context = {
+        'lista_noticias': noticias_encontradas,
+        'query': query  # Inclui a query no contexto para exibição no formulário
+    }
+    return render(request, 'noticias/search.html', context)

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Busca de Notícias</h2>
+<form action="{% url 'noticias:search' %}" method="get">
+    <input type="text" name="query" placeholder="Buscar notícias" value="{{ query }}">
+    <button type="submit">Buscar</button>
+</form>
+
+<h2>Resultados da pesquisa{% if query %} para "{{ query }}"{% endif %}</h2>
+
+{% if lista_noticias %}
+    <ul>
+        {% for noticia in lista_noticias %}
+            <li>
+                <a href="{% url 'noticias:detail' noticia.id %}">{{ noticia.titulo }}</a>
+                <p>
+                    <small>Publicado em {{ noticia.data|date:"d \d\e F \d\e Y" }} — há {{ noticia.data|timesince }}</small>
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Nenhuma notícia encontrada para "{{ query }}"</p>
+{% endif %}
+{% endblock content %}
