@@ -3,16 +3,10 @@ from . import views
 
 app_name = 'noticias'
 urlpatterns = [
-    path('', views.lista_noticias, name='index'),
-    path('<int:noticia_id>/', views.detalhe, name='detail'),
-    path('busca/', views.busca_noticias, name='search'),
-    path('criar/', views.cria_noticia, name='create'),
+    path('', views.lista_noticias, name='listar'),  # Listar todas as notícias
+    path('<int:noticia_id>/', views.detalhe, name='detalhe'),  # Exibir detalhes de uma notícia
+    path('busca/', views.busca_noticias, name='buscar'),  # Buscar notícias
+    path('criar/', views.cria_noticia, name='criar'),  # Criar uma nova notícia
+    path('atualizar/<int:noticia_id>/', views.atualizar_noticia, name='atualizar'),  # Atualizar uma notícia
+    path('excluir/<int:noticia_id>/', views.excluir_noticia, name='excluir'),  # Excluir uma notícia com confirmação
 ]
-
-'''
-    path('nova/', views.nova_noticia, name='nova_noticia'),
-    path('editar/<int:noticia_id>/', views.editar_noticia, name='editar_noticia'),
-    path('deletar/<int:noticia_id>/', views.deletar_noticia, name='deletar_noticia'),
-    path('comentar/<int:noticia_id>/', views.comentar, name='comentar'),
-    path('deletar_comentario/<int:comentario_id>/', views.deletar_comentario, name='deletar_comentario'),'
-'''

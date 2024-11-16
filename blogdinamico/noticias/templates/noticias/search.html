@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Busca de Notícias</h2>
 
-<form action="{% url 'noticias:search' %}" method="get">
+<form action="{% url 'noticias:buscar' %}" method="get">
     <input type="text" name="query" placeholder="Buscar notícias" value="{{ query }}">
     <button type="submit">Buscar</button>
 </form>
@@ -14,9 +14,9 @@
     <ul>
         {% for noticia in lista_noticias %}
             <li>
-                <a href="{% url 'noticias:detail' noticia.id %}">{{ noticia.titulo }}</a>
+                <a href="{% url 'noticias:detalhe' noticia.id %}">{{ noticia.titulo }}</a>
                 <p>
-                    <small>Publicado em {{ noticia.data|date:"d \d\e F \d\e Y" }} — há {{ noticia.data|timesince }}</small>
+                    <small>Publicado em {{ noticia.data_postagem|date:"d 'de' F 'de' Y" }} — {{ noticia.data_postagem|timesince }} atrás</small>
                 </p>
             </li>
         {% endfor %}

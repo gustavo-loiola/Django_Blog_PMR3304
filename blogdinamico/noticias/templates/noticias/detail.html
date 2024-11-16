@@ -6,12 +6,12 @@
     <header>
         <h1>{{ noticia.titulo }}</h1>
         <p class="data-publicacao">
-            Publicado em {{ noticia.data|date:"d \d\e F \d\e Y" }} — há {{ noticia.data|timesince }}
+            Publicado em {{ noticia.data_postagem|date:"d 'de' F 'de' Y" }} — {{ noticia.data_postagem|timesince }} atrás
         </p>
     </header>
 
     <section class="imagem-noticia">
-        <img src="{{ noticia.noticia_url }}" alt="Imagem da Notícia: {{ noticia.titulo }}">
+        <img src="{{ noticia.noticia_url|default:'https://via.placeholder.com/150' }}" alt="Imagem da Notícia: {{ noticia.titulo }}">
     </section>
 
     <section class="conteudo-noticia">
@@ -20,7 +20,7 @@
 
     <footer class="categorias-noticia">
         <p><strong>Categorias:</strong>
-            {% for categoria in noticia.categorias %}
+            {% for categoria in noticia.categorias.all %}
                 <span class="categoria">{{ categoria.nome }}</span>{% if not forloop.last %}, {% endif %}
             {% endfor %}
         </p>
