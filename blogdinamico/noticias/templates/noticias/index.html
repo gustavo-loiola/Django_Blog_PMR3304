@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 <div class="header-noticias">
     <h2>Últimas Notícias</h2>
     <div class="header-actions">
-        <a href="{% url 'noticias:criar' %}" class="botao-criar">Publicar Notícia</a>
+        <a href="{% url 'noticias:criar' %}" class="botao-criar">Criar Nova Notícia</a>
         <a href="{% url 'noticias:buscar' %}" class="botao-busca">Buscar Notícias</a>
     </div>
 </div>
@@ -31,6 +30,12 @@
               <span class="categoria">{{ categoria.nome }}</span>{% if not forloop.last %}, {% endif %}
             {% endfor %}
           </div>
+
+          <!-- Links para editar e excluir -->
+          <div class="noticia-actions">
+            <a href="{% url 'noticias:atualizar' noticia.id %}" class="btn btn-primary">Editar</a>
+            <a href="{% url 'noticias:excluir' noticia.id %}" class="btn btn-danger">Excluir</a>
+          </div>
         </div>
       </article>
       {% endfor %}
@@ -39,5 +44,4 @@
     <p>Nenhuma notícia foi encontrada.</p>
     {% endif %}
 </div>
-
 {% endblock content %}

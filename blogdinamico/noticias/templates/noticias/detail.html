@@ -6,7 +6,7 @@
     <header>
         <h1>{{ noticia.titulo }}</h1>
         <p class="data-publicacao">
-            Publicado em {{ noticia.data_postagem|date:"d 'de' F 'de' Y" }} — {{ noticia.data_postagem|timesince }} atrás
+            Publicado em {{ noticia.data_postagem|date:"d \d\e F \d\e Y" }} — há {{ noticia.data_postagem|timesince }}
         </p>
     </header>
 
@@ -25,6 +25,12 @@
             {% endfor %}
         </p>
     </footer>
+
+    <!-- Links para edição e exclusão -->
+    <div class="noticia-actions">
+        <a href="{% url 'noticias:atualizar' noticia.id %}" class="btn btn-primary">Editar Notícia</a>
+        <a href="{% url 'noticias:excluir' noticia.id %}" class="btn btn-danger">Excluir Notícia</a>
+    </div>
 </article>
 
 {% endblock content %}
