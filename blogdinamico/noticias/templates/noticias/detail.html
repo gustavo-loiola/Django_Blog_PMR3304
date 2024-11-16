@@ -28,9 +28,40 @@
 
     <!-- Links para edição e exclusão -->
     <div class="noticia-actions">
-        <a href="{% url 'noticias:atualizar' noticia.id %}" class="btn btn-secondary">Editar Notícia</a>
-        <a href="{% url 'noticias:excluir' noticia.id %}" class="btn btn-secondary">Excluir Notícia</a>
+        <a href="{% url 'noticias:atualizar' noticia.id %}" class="btn btn-primary">Editar Notícia</a>
+        <a href="{% url 'noticias:excluir' noticia.id %}" class="btn btn-danger">Excluir Notícia</a>
     </div>
 </article>
+
+<!-- Seção de Comentários -->
+<section class="comentarios">
+    <h3>Comentários</h3>
+    {% if comments %}
+        <ul>
+            {% for comment in comments %}
+                <li>
+                    <strong>{{ comment.autor.username }}</strong> em {{ comment.data_postagem|date:"d/m/Y H:i" }}
+                    <p>{{ comment.texto }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Seja o primeiro a comentar!</p>
+    {% endif %}
+</section>
+
+<!-- Formulário para Novo Comentário -->
+{% if user.is_authenticated %}
+    <section class="novo-comentario">
+        <h3>Deixe um comentário</h3>
+        <form method="post" action="{% url 'noticias:detalhe' noticia.id %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Postar Comentário</button>
+        </form>
+    </section>
+{% else %}
+    <p><a href="{% url 'login' %}">Faça login</a> para comentar.</p>
+{% endif %}
 
 {% endblock content %}
