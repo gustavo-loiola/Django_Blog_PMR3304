@@ -8,11 +8,11 @@
 <section class="lista-de-cards">
   {% for noticia in lista_noticias %}
   <article class="card">
-    <a href="{% url 'noticias:detalhe' noticia.id %}">
+    <a href="{% url 'noticias:detail' noticia.id %}">
       <img src="{{ noticia.noticia_url }}" alt="Imagem da Notícia: {{ noticia.titulo }}" />
     </a>
     <div class="conteudo-card">
-      <a href="{% url 'noticias:detalhe' noticia.id %}">
+      <a href="{% url 'noticias:detail' noticia.id %}">
         <h3>{{ noticia.titulo }}</h3>
       </a>
       <p class="data-publicacao">
