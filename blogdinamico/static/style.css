@@ -1,0 +1,112 @@
+/* Estilos Globais */
+body {
+    background-color: #212121;
+    color: #FFFFFF;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Estilos para o Header e Footer */
+  header, footer {
+    background-color: #171717;
+    color: #FFFFFF;
+  }
+  
+  /* Estilos para Cabeçalhos */
+  h1, h2, h3, h4 {
+    font-family: 'Helvetica', sans-serif;
+    color: #FFFFFF;
+  }
+  
+  /* Estilos para Links */
+  a {
+    color: #FFFFFF;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    opacity: 0.8;
+  }
+  
+  /* Estilos para Imagens */
+  img {
+    max-width: 100%;
+    border: none;
+    height: auto;
+  }
+  
+  /* Estilos para Seções */
+  section {
+    padding: 20px;
+    margin-bottom: 30px;
+    background-color: #212121;
+  }
+  
+  /* Estilos Específicos para a Logo de Contato */
+  .contact-logo {
+    width: 50px;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para a Área de Informações de Contato */
+  .contact-info {
+    text-align: center;
+    color: #FFFFFF;
+  }
+  
+  .contact-info a {
+    color: #FFFFFF;
+    text-decoration: none;
+  }
+  
+  .contact-info a:hover {
+    opacity: 0.8;
+  }
+  
+  /* Estilos para o Texto em Parágrafos e Listas */
+  p, ul {
+    color: #CCCCCC;
+  }
+  
+  ul {
+    list-style-type: disc;
+    margin-left: 20px;
+  }
+  
+  /* Estilos para Textos Fortes e Enfáticos */
+  strong {
+    color: #FFFFFF;
+    font-weight: bold;
+  }
+  
+  em {
+    color: #AAAAAA;
+    font-style: italic;
+  }
+  
+  /* Media Queries (Responsividade para telas menores) */
+  @media (max-width: 768px) {
+    header nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+  
+    section {
+        flex-direction: column;
+        text-align: center;
+    }
+  
+    section div {
+        margin-bottom: 20px;
+    }
+  
+    .contact-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+  
+    .project-card {
+        flex-basis: 100%;
+    }
+  }

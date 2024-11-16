@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}{% endblock %} | Watch that film!
+    </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <header id="cabecalho-principal" style="background-color: #171717; color: #FFFFFF; padding: 10px 20px;">
+        <nav style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <a href="/" style="color: #FFFFFF; font-size: 1.5rem;">Notícias</a>
+            </div>
+            <ul style="list-style: none; display: flex; gap: 20px;">
+                <li><a href="{% url 'index' %}" style="color: #FFFFFF;">WTF</a></li>
+                <li><a href="{% url 'about' %}" style="color: #FFFFFF;">Sobre</a></li>
+        </nav>
+    </header>
+    <main id="conteiner-principal">
+        {% block content %}
+        {% endblock content %}
+    </main>
+    <footer id="rodape-principal" style="background-color: #171717; color: #FFFFFF; padding: 20px; text-align: center;">
+        <p>
+            <small>Desenvolvido por Gustavo Loiola</small>
+        </p>
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    </footer>
+</body>
+
+</html>
