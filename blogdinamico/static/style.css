@@ -119,21 +119,80 @@ body {
 }
 
 .header-noticias h2 {
-    margin: 0;
+    margin: 20px;
 }
 
-.botao-criar {
-    background-color: #007bff;
-    color: white;
-    padding: 8px 12px;
-    text-decoration: none;
-    border-radius: 4px;
-    font-size: 14px;
+.header-actions {
+  display: flex;
+  gap: 10px; /* Espaço entre os botões */
 }
 
-.botao-criar:hover {
-    background-color: #0056b3;
+
+.botao-criar, .botao-busca {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 12px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 14px;
 }
+
+.botao-criar:hover, .botao-busca:hover {
+  background-color: #0056b3;
+}
+
+/* Container das notícias */
+.container-noticias {
+  display: flex;
+  justify-content: center;
+}
+
+/* Estilo para a lista de cards (notícias) */
+.lista-de-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Espaço entre os cards */
+  justify-content: center; /* Centraliza os cards horizontalmente */
+  max-width: 1000px; /* Define uma largura máxima para manter o layout centralizado */
+}
+
+/* Card de notícia individual */
+.card {
+  background-color: #333333; /* Fundo escuro para combinar com o tema */
+  padding: 15px;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/* Imagem do card */
+.card img {
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Conteúdo do card */
+.conteudo-card h3 {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.data-publicacao {
+  font-size: 14px;
+  color: #CCCCCC;
+}
+
+.categorias {
+  font-size: 12px;
+  color: #AAAAAA;
+}
+
+.categoria {
+  display: inline-block;
+  margin-right: 5px;
+}
+
 
 /* Container do formulário */
 .form-container {
