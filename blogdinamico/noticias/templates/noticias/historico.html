@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Histórico de Notícias Acessadas</h2>
+
+{% if historico_acesso %}
+    <ul>
+        {% for acesso in historico_acesso %}
+            <li>
+                <a href="{% url 'noticias:detalhe' acesso.noticia.id %}">{{ acesso.noticia.titulo }}</a> -
+                Acessado em {{ acesso.data_acesso|date:"d 'de' F 'de' Y H:i" }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Você ainda não acessou nenhuma notícia.</p>
+{% endif %}
+
+{% endblock content %}

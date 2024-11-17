@@ -3,11 +3,12 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
-from .models import Noticia, Comment
+from .models import Noticia, Comment, HistoricoAcesso
 from .forms import NoticiaForm, CommentForm
 
-# View para exibir detalhes de uma notícia e seus comentários
+# View para exibir detalhes de uma notícia e registrar o acesso no histórico
 class NoticiaDetalheView(DetailView):
     model = Noticia
     template_name = 'noticias/detail.html'
@@ -15,15 +16,21 @@ class NoticiaDetalheView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Busca os comentários da notícia e ordena do mais recente ao mais antigo
+        # Adiciona os comentários da notícia e o formulário de comentários ao contexto
         context['comments'] = Comment.objects.filter(noticia=self.object).order_by('-data_postagem')
-        # Inclui o formulário de comentário no contexto
         context['form'] = CommentForm()
         return context
 
+    def dispatch(self, request, *args, **kwargs):
+        # Se o usuário estiver autenticado, registra o acesso à notícia no histórico
+        if request.user.is_authenticated:
+            noticia = self.get_object()
+            HistoricoAcesso.objects.create(usuario=request.user, noticia=noticia)
+        return super().dispatch(request, *args, **kwargs)
+
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        # Busca a notícia atual
+        # Adiciona um novo comentário à notícia
         self.object = self.get_object()
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -41,14 +48,14 @@ class ListaNoticiasView(ListView):
     template_name = 'noticias/index.html'
     context_object_name = 'lista_noticias'
 
-# View para buscar notícias (mantida como view funcional)
+# View para buscar notícias
 def busca_noticias(request):
-    query = request.GET.get('query', '')  # Obtém a query diretamente
+    query = request.GET.get('query', '')
     noticias_encontradas = Noticia.objects.filter(titulo__icontains=query) if query else Noticia.objects.all()
     
     context = {
         'lista_noticias': noticias_encontradas,
-        'query': query  # Inclui a query no contexto para exibição no formulário
+        'query': query
     }
     return render(request, 'noticias/search.html', context)
 
@@ -88,3 +95,14 @@ class ExcluirNoticiaView(DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, "Notícia excluída com sucesso!")
         return super().delete(request, *args, **kwargs)
+
+# View para exibir o histórico de notícias acessadas pelo usuário
+class HistoricoAcessoView(LoginRequiredMixin, ListView):
+    model = HistoricoAcesso
+    template_name = 'noticias/historico_acesso.html'
+    context_object_name = 'historico_acesso'
+    login_url = 'login'  # Redireciona para o login se o usuário não estiver autenticado
+
+    def get_queryset(self):
+        # Retorna apenas o histórico de acesso do usuário atual, ordenado pelo mais recente
+        return HistoricoAcesso.objects.filter(usuario=self.request.user).order_by('-data_acesso')

@@ -29,3 +29,11 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'Comentário de {self.autor} na notícia {self.noticia}'
+    
+class HistoricoAcesso(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    noticia = models.ForeignKey(Noticia, on_delete=models.CASCADE)
+    data_acesso = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.usuario.username} - {self.noticia.titulo} em {self.data_acesso}'    

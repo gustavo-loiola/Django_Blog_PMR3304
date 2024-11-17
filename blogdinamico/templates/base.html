@@ -23,6 +23,10 @@
                 <li><a href="{% url 'noticias:listar' %}" style="color: #FFFFFF;">Notícias</a></li>
                 <li><a href="{% url 'index' %}" style="color: #FFFFFF;">WTF</a></li>
                 <li><a href="{% url 'about' %}" style="color: #FFFFFF;">Sobre</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'noticias:historico_acesso' %}" style="color: #FFFFFF;">Histórico</a></li>
+                {% endif %}
+            </ul>
         </nav>
     </header>
     <main id="conteiner-principal">
