@@ -5,15 +5,13 @@ body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
 }
 
 header, footer {
   background-color: #171717;
   color: #FFFFFF;
+  text-align: center;
+  padding: 10px 20px;
 }
 
 /* Estilos para Cabeçalhos */
@@ -32,7 +30,6 @@ a:hover {
   opacity: 0.8;
 }
 
-/* Parágrafos e Listas */
 p, ul {
   color: #CCCCCC;
 }
@@ -82,10 +79,7 @@ section {
 
 .form-group input,
 .form-group textarea,
-.form-group select,
-.auth-container input[type="text"],
-.auth-container input[type="password"],
-.auth-container input[type="email"] {
+.form-group select {
   width: 100%;
   padding: 10px;
   font-size: 16px;
@@ -99,16 +93,13 @@ section {
 
 .form-group input:focus,
 .form-group textarea:focus,
-.form-group select:focus,
-.auth-container input[type="text"]:focus,
-.auth-container input[type="password"]:focus,
-.auth-container input[type="email"]:focus {
+.form-group select:focus {
   border-color: #007bff;
   outline: none;
 }
 
 /* Botões */
-.btn, .auth-container button {
+.btn {
   padding: 10px 20px;
   font-size: 16px;
   color: #FFFFFF;
@@ -121,7 +112,7 @@ section {
   transition: background-color 0.3s;
 }
 
-.btn:hover, .auth-container button:hover {
+.btn:hover {
   background-color: #0056b3;
 }
 
@@ -171,11 +162,19 @@ section {
   width: 300px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .card img {
   border-radius: 8px;
   margin-bottom: 10px;
+}
+
+.conteudo-card {
+  flex-grow: 1;
+  margin-bottom: 15px; /* Adiciona espaço entre o conteúdo e os botões */
 }
 
 .conteudo-card h3 {
@@ -186,11 +185,13 @@ section {
 .data-publicacao {
   font-size: 14px;
   color: #CCCCCC;
+  margin-bottom: 10px; /* Adiciona espaçamento entre a data e as categorias */
 }
 
-.categorias, .categoria {
+.categorias {
   font-size: 12px;
   color: #AAAAAA;
+  margin-bottom: 10px; /* Adiciona espaçamento entre as categorias e os botões */
 }
 
 .categoria {
@@ -198,32 +199,87 @@ section {
   margin-right: 5px;
 }
 
-/* Links para Alternar entre Login e Registro */
-.auth-container p {
+/* Botões de ação no Card */
+.card .btn {
+  margin: 5px;
+}
+
+/* Header de Notícias */
+.header-noticias {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Espaço entre o título e os botões */
+  padding: 10px 0;
+  position: relative;
+}
+
+.header-noticias h2 {
+  flex-grow: 1;
+  text-align: center;
+  margin: 0;
+}
+
+/* Botões do Header */
+.header-actions {
+  position: absolute;
+  right: 0;
+  display: flex;
+  gap: 10px;
+}
+
+/* Botões de ação */
+.botao-criar, .botao-busca {
+  background-color: #007bff;
+  color: #FFFFFF;
+  padding: 8px 12px;
+  text-decoration: none;
+  border-radius: 4px;
   font-size: 14px;
-  margin-top: 15px;
+}
+
+.botao-criar:hover, .botao-busca:hover {
+  background-color: #0056b3;
+}
+
+/* Estilo para a página de histórico */
+.historico-container {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #333333;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+.historico-container h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #FFFFFF;
+}
+
+.historico-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.historico-container li {
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #2A2A2A;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.historico-container li p {
+  margin: 5px 0;
   color: #CCCCCC;
 }
 
-.auth-container a {
-  color: #007bff;
-  text-decoration: underline;
-}
-
-.auth-container a:hover {
-  opacity: 0.8;
-}
-
-/* Feedback Visual para Limite de Categorias */
-.category-limit-message {
-  display: none;
-}
-
-/* Botões de Formulário */
-.form-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+.historico-container li p strong {
+  color: #FFFFFF;
 }
 
 /* Responsividade */

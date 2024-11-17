@@ -9,11 +9,19 @@
             <p class="error-message">Por favor, corrija os erros abaixo:</p>
             <ul>
                 {% for field, errors in form.errors.items %}
-                    {% for error in errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
+                    {% if field != '__all__' %} <!-- Evita duplicação de mensagens gerais -->
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endif %}
                 {% endfor %}
             </ul>
+        </div>
+    {% endif %}
+    
+    {% if form.non_field_errors %}
+        <div class="messages">
+            <p class="error-message">{{ form.non_field_errors|first }}</p> <!-- Exibe apenas a primeira mensagem de erro não específica -->
         </div>
     {% endif %}
 

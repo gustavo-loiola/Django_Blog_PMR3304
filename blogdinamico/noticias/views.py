@@ -1,11 +1,9 @@
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.contrib import messages
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
-from django.utils.decorators import method_decorator
 from .models import Noticia, Comment, HistoricoAcesso
 from .forms import NoticiaForm, CommentForm
 
@@ -17,21 +15,22 @@ class NoticiaDetalheView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Adiciona os comentários da notícia e o formulário de comentários ao contexto
         context['comments'] = Comment.objects.filter(noticia=self.object).order_by('-data_postagem')
         context['form'] = CommentForm()
         return context
 
     def dispatch(self, request, *args, **kwargs):
-        # Se o usuário estiver autenticado, registra o acesso à notícia no histórico
         if request.user.is_authenticated:
             noticia = self.get_object()
-            HistoricoAcesso.objects.create(usuario=request.user, noticia=noticia)
+            # Cria o histórico com o URL da notícia
+            HistoricoAcesso.objects.create(
+                usuario=request.user,
+                noticia=noticia,
+                url=self.request.build_absolute_uri(reverse('noticias:detalhe', kwargs={'pk': noticia.pk}))
+            )
         return super().dispatch(request, *args, **kwargs)
 
-    @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        # Adiciona um novo comentário à notícia
         self.object = self.get_object()
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -53,18 +52,18 @@ class ListaNoticiasView(ListView):
 def busca_noticias(request):
     query = request.GET.get('query', '')
     noticias_encontradas = Noticia.objects.filter(titulo__icontains=query) if query else Noticia.objects.all()
-    
     context = {
         'lista_noticias': noticias_encontradas,
         'query': query
     }
     return render(request, 'noticias/search.html', context)
 
-# View para criar uma nova notícia
-class CriarNoticiaView(CreateView):
+# View para criar uma nova notícia (apenas para usuários logados)
+class CriarNoticiaView(LoginRequiredMixin, CreateView):
     model = Noticia
     form_class = NoticiaForm
     template_name = 'noticias/create.html'
+    login_url = 'noticias:login'
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -75,10 +74,11 @@ class CriarNoticiaView(CreateView):
         return reverse_lazy('noticias:detalhe', kwargs={'pk': self.object.pk})
 
 # View para atualizar uma notícia
-class AtualizarNoticiaView(UpdateView):
+class AtualizarNoticiaView(LoginRequiredMixin, UpdateView):
     model = Noticia
     form_class = NoticiaForm
     template_name = 'noticias/update.html'
+    login_url = 'noticias:login'
 
     def form_valid(self, form):
         messages.success(self.request, "Notícia atualizada com sucesso!")
@@ -88,10 +88,11 @@ class AtualizarNoticiaView(UpdateView):
         return reverse_lazy('noticias:listar')
 
 # View para excluir uma notícia com confirmação
-class ExcluirNoticiaView(DeleteView):
+class ExcluirNoticiaView(LoginRequiredMixin, DeleteView):
     model = Noticia
     template_name = 'noticias/delete.html'
     success_url = reverse_lazy('noticias:listar')
+    login_url = 'noticias:login'
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, "Notícia excluída com sucesso!")
@@ -100,15 +101,15 @@ class ExcluirNoticiaView(DeleteView):
 # View para exibir o histórico de notícias acessadas pelo usuário
 class HistoricoAcessoView(LoginRequiredMixin, ListView):
     model = HistoricoAcesso
-    template_name = 'noticias/historico_acesso.html'
+    template_name = 'noticias/historico.html'
     context_object_name = 'historico_acesso'
-    login_url = 'login'  # Redireciona para o login se o usuário não estiver autenticado
+    login_url = 'noticias:login'
 
     def get_queryset(self):
-        # Retorna apenas o histórico de acesso do usuário atual, ordenado pelo mais recente
         return HistoricoAcesso.objects.filter(usuario=self.request.user).order_by('-data_acesso')
-    
+
+# View para registrar um novo usuário
 class RegistroView(CreateView):
     form_class = UserCreationForm
     template_name = 'noticias/registro.html'
-    success_url = reverse_lazy('noticias:login')  # Redireciona para a tela de login após o registro
+    success_url = reverse_lazy('noticias:listar')

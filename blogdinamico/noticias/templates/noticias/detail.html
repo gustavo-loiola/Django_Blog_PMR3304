@@ -6,7 +6,7 @@
     <header>
         <h1>{{ noticia.titulo }}</h1>
         <p class="data-publicacao">
-            Publicado em {{ noticia.data_postagem|date:"d 'de' F 'de' Y" }} — há {{ noticia.data_postagem|timesince }}
+            Publicado em {{ noticia.data_postagem|date:"d \d\e F \d\e Y" }} — há {{ noticia.data_postagem|timesince }}
         </p>
     </header>
 
