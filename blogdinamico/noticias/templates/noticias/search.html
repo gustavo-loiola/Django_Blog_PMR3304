@@ -16,12 +16,25 @@
             <li>
                 <a href="{% url 'noticias:detalhe' noticia.id %}">{{ noticia.titulo }}</a>
                 <p>
-                    <small>Publicado em {{ noticia.data_postagem|date:"d 'de' F 'de' Y" }} — {{ noticia.data_postagem|timesince }} atrás</small>
+                    <small>Publicado em {{ noticia.data_postagem|date:"d \d\e F \d\e Y" }} — {{ noticia.data_postagem|timesince }} atrás</small>
                 </p>
             </li>
         {% endfor %}
     </ul>
 {% else %}
     <p>Nenhuma notícia encontrada para "{{ query }}"</p>
+{% endif %}
+
+{% if user.is_authenticated %}
+    <h2>Seu Histórico de Buscas</h2>
+    {% if historico_buscas %}
+        <ul>
+            {% for item in historico_buscas %}
+                <li>{{ item.termo }} - {{ item.data_busca|date:"d/m/Y H:i" }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Ainda não há buscas anteriores.</p>
+    {% endif %}
 {% endif %}
 {% endblock content %}

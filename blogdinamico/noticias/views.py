@@ -1,10 +1,12 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.contrib import messages
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
-from .models import Noticia, Comment, HistoricoAcesso, Categoria
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.http import HttpResponseRedirect
+from .models import Noticia, Comment, HistoricoAcesso, Categoria, HistoricoBusca  # Adicione HistoricoBusca
 from .forms import NoticiaForm, CommentForm
 
 # View para exibir detalhes de uma notícia e registrar o acesso no histórico
@@ -22,7 +24,6 @@ class NoticiaDetalheView(DetailView):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             noticia = self.get_object()
-            # Cria o histórico com o URL da notícia
             HistoricoAcesso.objects.create(
                 usuario=request.user,
                 noticia=noticia,
@@ -52,9 +53,21 @@ class ListaNoticiasView(ListView):
 def busca_noticias(request):
     query = request.GET.get('query', '')
     noticias_encontradas = Noticia.objects.filter(titulo__icontains=query) if query else Noticia.objects.all()
+    
+    # Salva o termo de busca no histórico do usuário autenticado
+    if query and request.user.is_authenticated:
+        HistoricoBusca.objects.create(usuario=request.user, termo=query)
+
+    # Obtém o histórico de buscas do usuário autenticado
+    historico_buscas = (
+        HistoricoBusca.objects.filter(usuario=request.user).order_by('-data_busca')
+        if request.user.is_authenticated else []
+    )
+
     context = {
         'lista_noticias': noticias_encontradas,
-        'query': query
+        'query': query,
+        'historico_buscas': historico_buscas,
     }
     return render(request, 'noticias/search.html', context)
 
@@ -112,7 +125,16 @@ class HistoricoAcessoView(LoginRequiredMixin, ListView):
 class RegistroView(CreateView):
     form_class = UserCreationForm
     template_name = 'noticias/registro.html'
-    success_url = reverse_lazy('noticias:listar')
+    success_url = reverse_lazy('noticias:listar')  # URL padrão de sucesso
+
+    def form_valid(self, form):
+        # Salva o usuário
+        response = super().form_valid(form)
+        # Loga o usuário automaticamente
+        login(self.request, self.object)
+        # Redireciona para a página anterior, se disponível, ou para a URL padrão
+        next_url = self.request.GET.get('next') or self.success_url
+        return HttpResponseRedirect(next_url)
 
 # View para listagem de categorias
 class CategoriaListView(ListView):
@@ -128,6 +150,5 @@ class CategoriaDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Lista de posts da categoria
         context['posts'] = Noticia.objects.filter(categorias=self.object)
         return context

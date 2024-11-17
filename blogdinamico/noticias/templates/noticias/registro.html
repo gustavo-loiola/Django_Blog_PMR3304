@@ -17,13 +17,13 @@
         </div>
     {% endif %}
 
-    <form action="{% url 'noticias:registro' %}" method="post">
+    <form action="{% url 'noticias:registro' %}?next={{ request.GET.next|urlencode }}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
 
         <div class="form-buttons">
             <button type="submit" class="btn btn-primary">Registrar</button>
-            <a href="{% url 'noticias:login' %}" class="btn btn-secondary">Já tenho conta</a>
+            <a href="{% url 'noticias:login' %}?next={{ request.GET.next|urlencode }}" class="btn btn-secondary">Já tenho conta</a>
         </div>
     </form>
 </div>
