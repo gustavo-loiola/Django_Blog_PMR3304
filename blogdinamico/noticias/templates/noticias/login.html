@@ -1,13 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="auth-container">
+<div class="form-container">
     <h2>Login</h2>
-    <form method="post" action="{% url 'noticias:login' %}">
+
+    {% if form.errors %}
+        <div class="messages">
+            <p class="error-message">Por favor, corrija os erros abaixo:</p>
+            <ul>
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form action="{% url 'noticias:login' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Entrar</button>
+
+        <div class="form-buttons">
+            <button type="submit" class="btn btn-primary">Entrar</button>
+            <a href="{% url 'noticias:registro' %}" class="btn btn-secondary">Criar Conta</a>
+        </div>
     </form>
-    <p>Ainda não tem uma conta? <a href="{% url 'noticias:registro' %}">Registre-se aqui</a>.</p>
 </div>
 {% endblock content %}

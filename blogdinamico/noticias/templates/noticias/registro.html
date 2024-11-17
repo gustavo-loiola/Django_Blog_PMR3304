@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="auth-container">
+<div class="form-container">
     <h2>Registro</h2>
-    
-    <!-- Exibe mensagens de erro se houver -->
+
     {% if form.errors %}
-        <div class="error-message">
-            <p>Por favor, corrija os erros abaixo:</p>
+        <div class="messages">
+            <p class="error-message">Por favor, corrija os erros abaixo:</p>
             <ul>
                 {% for field, errors in form.errors.items %}
                     {% for error in errors %}
@@ -18,12 +17,14 @@
         </div>
     {% endif %}
 
-    <form method="post" action="{% url 'noticias:registro' %}">
+    <form action="{% url 'noticias:registro' %}" method="post">
         {% csrf_token %}
-        {{ form.as_p }} <!-- Exibe o formulário com campos padrão -->
-        <button type="submit" class="btn btn-primary">Registrar</button>
+        {{ form.as_p }}
+
+        <div class="form-buttons">
+            <button type="submit" class="btn btn-primary">Registrar</button>
+            <a href="{% url 'noticias:login' %}" class="btn btn-secondary">Já tenho conta</a>
+        </div>
     </form>
-    
-    <p>Já tem uma conta? <a href="{% url 'noticias:login' %}">Faça login</a>.</p>
 </div>
 {% endblock content %}
