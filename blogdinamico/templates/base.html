@@ -21,10 +21,19 @@
             </div>
             <ul style="list-style: none; display: flex; gap: 20px;">
                 <li><a href="{% url 'noticias:listar' %}" style="color: #FFFFFF;">Notícias</a></li>
-                <li><a href="{% url 'index' %}" style="color: #FFFFFF;">WTF</a></li>
-                <li><a href="{% url 'about' %}" style="color: #FFFFFF;">Sobre</a></li>
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'noticias:historico_acesso' %}" style="color: #FFFFFF;">Histórico</a></li>
+                    <a href="{% url 'noticias:historico_acesso' %}" style="color: #FFFFFF;">Histórico</a>
+                    
+                    <!-- Formulário de logout -->
+                    <form action="{% url 'noticias:logout' %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" style="background: none; border: none; color: #FFFFFF; cursor: pointer;">
+                            Logout
+                        </button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'noticias:login' %}" style="color: #FFFFFF;">Login</a>
+                    <a href="{% url 'noticias:registro' %}" style="color: #FFFFFF;">Registrar</a>
                 {% endif %}
             </ul>
         </nav>
