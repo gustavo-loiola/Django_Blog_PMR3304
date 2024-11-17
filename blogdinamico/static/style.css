@@ -1,210 +1,74 @@
 /* Estilos Globais */
 body {
-    background-color: #212121;
-    color: #FFFFFF;
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Estilos para o Header e Footer */
-  header, footer {
-    background-color: #171717;
-    color: #FFFFFF;
-  }
-  
-  /* Estilos para Cabeçalhos */
-  h1, h2, h3, h4 {
-    font-family: 'Helvetica', sans-serif;
-    color: #FFFFFF;
-  }
-  
-  /* Estilos para Links */
-  a {
-    color: #FFFFFF;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    opacity: 0.8;
-  }
-  
-  /* Estilos para Imagens */
-  img {
-    max-width: 100%;
-    border: none;
-    height: auto;
-  }
-  
-  /* Estilos para Seções */
-  section {
-    padding: 20px;
-    margin-bottom: 30px;
-    background-color: #212121;
-  }
-  
-  /* Estilos Específicos para a Logo de Contato */
-  .contact-logo {
-    width: 50px;
-    margin-bottom: 10px;
-  }
-  
-  /* Estilos para a Área de Informações de Contato */
-  .contact-info {
-    text-align: center;
-    color: #FFFFFF;
-  }
-  
-  .contact-info a {
-    color: #FFFFFF;
-    text-decoration: none;
-  }
-  
-  .contact-info a:hover {
-    opacity: 0.8;
-  }
-  
-  /* Estilos para o Texto em Parágrafos e Listas */
-  p, ul {
-    color: #CCCCCC;
-  }
-  
-  ul {
-    list-style-type: disc;
-    margin-left: 20px;
-  }
-  
-  /* Estilos para Textos Fortes e Enfáticos */
-  strong {
-    color: #FFFFFF;
-    font-weight: bold;
-  }
-  
-  em {
-    color: #AAAAAA;
-    font-style: italic;
-  }
-  
-  /* Media Queries (Responsividade para telas menores) */
-  @media (max-width: 768px) {
-    header nav ul {
-        flex-direction: column;
-        gap: 10px;
-    }
-  
-    section {
-        flex-direction: column;
-        text-align: center;
-    }
-  
-    section div {
-        margin-bottom: 20px;
-    }
-  
-    .contact-grid {
-        flex-direction: column;
-        align-items: center;
-    }
-  
-    .project-card {
-        flex-basis: 100%;
-    }
-  }
-
-  .header-noticias {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.header-noticias h2 {
-    margin: 20px;
-}
-
-.header-actions {
+  background-color: #212121;
+  color: #FFFFFF;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
   display: flex;
-  gap: 10px; /* Espaço entre os botões */
-}
-
-
-.botao-criar, .botao-busca {
-  background-color: #007bff;
-  color: white;
-  padding: 8px 12px;
-  text-decoration: none;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-.botao-criar:hover, .botao-busca:hover {
-  background-color: #0056b3;
-}
-
-/* Container das notícias */
-.container-noticias {
-  display: flex;
+  align-items: center;
   justify-content: center;
+  min-height: 100vh; /* Centraliza o conteúdo */
 }
 
-/* Estilo para a lista de cards (notícias) */
-.lista-de-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px; /* Espaço entre os cards */
-  justify-content: center; /* Centraliza os cards horizontalmente */
-  max-width: 1000px; /* Define uma largura máxima para manter o layout centralizado */
+header, footer {
+  background-color: #171717;
+  color: #FFFFFF;
 }
 
-/* Card de notícia individual */
-.card {
-  background-color: #333333; /* Fundo escuro para combinar com o tema */
-  padding: 15px;
-  border-radius: 8px;
-  width: 300px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  text-align: center;
+/* Estilos para Cabeçalhos */
+h1, h2, h3, h4 {
+  font-family: 'Helvetica', sans-serif;
+  color: #FFFFFF;
 }
 
-/* Imagem do card */
-.card img {
-  border-radius: 8px;
-  margin-bottom: 10px;
+/* Estilos para Links */
+a {
+  color: #FFFFFF;
+  text-decoration: none;
 }
 
-/* Conteúdo do card */
-.conteudo-card h3 {
-  font-size: 20px;
-  margin: 10px 0;
+a:hover {
+  opacity: 0.8;
 }
 
-.data-publicacao {
-  font-size: 14px;
+p, ul {
   color: #CCCCCC;
 }
 
-.categorias {
-  font-size: 12px;
-  color: #AAAAAA;
+/* Imagens */
+img {
+  max-width: 100%;
+  height: auto;
 }
 
-.categoria {
-  display: inline-block;
-  margin-right: 5px;
+/* Estilos para Seções */
+section {
+  padding: 20px;
+  margin-bottom: 30px;
+  background-color: #212121;
 }
 
-
-/* Container do formulário */
-.form-container {
+/* Centraliza contêineres */
+.container-center {
   max-width: 600px;
   margin: 30px auto;
   padding: 20px;
-  background-color: #333333; /* Fundo escuro para combinar com o tema */
+  background-color: #333333;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  text-align: center;
 }
 
-/* Estilo dos campos do formulário */
+/* Títulos específicos */
+.container-center h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #FFFFFF;
+}
+
+/* Formulários */
 .form-group {
   margin-bottom: 20px;
 }
@@ -213,46 +77,31 @@ body {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
-  color: #FFFFFF;
 }
 
-.form-group input[type="text"],
-.form-group input[type="url"],
+.form-group input,
 .form-group textarea,
 .form-group select {
   width: 100%;
   padding: 10px;
   font-size: 16px;
-  background-color: #2A2A2A; /* Fundo escuro para campos de entrada */
+  background-color: #2A2A2A;
   color: #FFFFFF;
-  border: 1px solid #444444; /* Bordas escuras para manter o contraste */
+  border: 1px solid #444444;
   border-radius: 4px;
   box-sizing: border-box;
+  margin-bottom: 15px;
 }
 
-.form-group input[type="text"]:focus,
-.form-group input[type="url"]:focus,
+.form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-  border-color: #007bff; /* Cor de foco azul para destaque */
+  border-color: #007bff;
   outline: none;
 }
 
-/* Estilo para feedback visual de limite de categorias */
-.category-limit-message {
-  display: none;
-  font-size: 12px;
-  color: #FF6B6B; /* Vermelho suave para aviso */
-  margin-top: 5px;
-}
-
-/* Estilos dos botões */
-.form-buttons {
-  display: flex;
-  justify-content: space-between;
-}
-
-.form-buttons .btn {
+/* Botões */
+.btn {
   padding: 10px 20px;
   font-size: 16px;
   color: white;
@@ -280,13 +129,195 @@ body {
   background-color: #5a6268;
 }
 
-/* Mensagens de feedback */
+/* Categorias e Mensagens */
+.category-limit-message, .error-message {
+  font-size: 12px;
+  color: #FF6B6B;
+  margin-top: 5px;
+}
+
 .messages p.success {
-  color: #4CAF50; /* Verde claro para sucesso */
+  color: #4CAF50;
   font-weight: bold;
 }
 
 .messages p.error {
-  color: #FF6B6B; /* Vermelho claro para erro */
+  color: #FF6B6B;
   font-weight: bold;
+}
+
+/* Cartões de notícias */
+.container-noticias {
+  display: flex;
+  justify-content: center;
+}
+
+.lista-de-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  max-width: 1000px;
+}
+
+.card {
+  background-color: #333333;
+  padding: 15px;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.card img {
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.conteudo-card h3 {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.data-publicacao {
+  font-size: 14px;
+  color: #CCCCCC;
+}
+
+.categorias, .categoria {
+  font-size: 12px;
+  color: #AAAAAA;
+}
+
+.categoria {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+/* Autenticação */
+.auth-container {
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+  background-color: #333333;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.auth-container input[type="text"],
+.auth-container input[type="password"],
+.auth-container input[type="email"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #2A2A2A;
+  color: #FFFFFF;
+  border: 1px solid #444444;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.auth-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #FFFFFF;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.auth-container button:hover {
+  background-color: #0056b3;
+}
+
+.auth-container p {
+  font-size: 14px;
+  margin-top: 15px;
+  color: #CCCCCC;
+}
+
+.auth-container a {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.auth-container a:hover {
+  opacity: 0.8;
+}
+
+/* Título das páginas de Login e Registro */
+.auth-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #FFFFFF;
+}
+
+/* Formulários */
+.auth-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-container input[type="text"],
+.auth-container input[type="password"],
+.auth-container input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #2A2A2A;
+    color: #FFFFFF;
+    border: 1px solid #444444;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+/* Botão de submissão */
+.auth-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #FFFFFF;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.auth-container button:hover {
+    background-color: #0056b3;
+}
+
+/* Link para alternar entre login e registro */
+.auth-container p {
+  font-size: 14px;
+  margin-top: 15px;
+  color: #CCCCCC;
+}
+
+.auth-container a {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.auth-container a:hover {
+  opacity: 0.8;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  header nav ul, section, .contact-grid {
+      flex-direction: column;
+      gap: 10px;
+      text-align: center;
+  }
+
+  .project-card {
+      flex-basis: 100%;
+  }
 }

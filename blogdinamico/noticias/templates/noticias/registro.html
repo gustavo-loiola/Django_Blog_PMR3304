@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="auth-container">
+    <h2>Registro</h2>
+    
+    <!-- Exibe mensagens de erro se houver -->
+    {% if form.errors %}
+        <div class="error-message">
+            <p>Por favor, corrija os erros abaixo:</p>
+            <ul>
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="post" action="{% url 'noticias:registro' %}">
+        {% csrf_token %}
+        {{ form.as_p }} <!-- Exibe o formulário com campos padrão -->
+        <button type="submit" class="btn btn-primary">Registrar</button>
+    </form>
+    
+    <p>Já tem uma conta? <a href="{% url 'noticias:login' %}">Faça login</a>.</p>
+</div>
+{% endblock content %}

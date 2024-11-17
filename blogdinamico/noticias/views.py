@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import UserCreationForm
 from django.utils.decorators import method_decorator
 from .models import Noticia, Comment, HistoricoAcesso
 from .forms import NoticiaForm, CommentForm
@@ -106,3 +107,8 @@ class HistoricoAcessoView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         # Retorna apenas o histórico de acesso do usuário atual, ordenado pelo mais recente
         return HistoricoAcesso.objects.filter(usuario=self.request.user).order_by('-data_acesso')
+    
+class RegistroView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'noticias/registro.html'
+    success_url = reverse_lazy('noticias:login')  # Redireciona para a tela de login após o registro
