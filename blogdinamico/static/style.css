@@ -144,64 +144,88 @@ section {
 /* Cartões de Notícias */
 .container-noticias {
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* Alinha notícias em uma coluna */
+  align-items: center;
 }
 
 .lista-de-cards {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 20px;
-  justify-content: center;
-  max-width: 1000px;
+  width: 100%;
+  max-width: 800px;
 }
 
 .card {
   background-color: #333333;
   padding: 15px;
   border-radius: 8px;
-  width: 300px;
+  display: flex;
+  align-items: flex-start;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  text-align: center;
+  gap: 15px; /* Espaço entre imagem e texto */
+}
+
+.imagem-noticia {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px; /* Adiciona espaço abaixo da imagem */
+}
+
+.imagem-noticia img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px; /* Opcional: arredonda os cantos da imagem */
+}
+
+.card .imagem-noticia img {
+  width: 150px; /* Largura fixa */
+  height: 150px; /* Altura fixa */
+  object-fit: cover; /* Corta a imagem para manter as proporções */
+  border-radius: 8px;
+}
+
+.conteudo-noticia {
+  flex: 1; /* Faz o conteúdo textual ocupar o espaço restante */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
-.card img {
-  border-radius: 8px;
-  margin-bottom: 10px;
+.conteudo-noticia h3 {
+  font-size: 22px;
+  margin: 0;
+  font-weight: bold;
+  color: #FFFFFF;
 }
 
-.conteudo-card {
-  flex-grow: 1;
-  margin-bottom: 15px; /* Adiciona espaço entre o conteúdo e os botões */
+.resumo {
+  font-size: 16px;
+  color: #CCCCCC;
+  margin-top: 5px;
 }
 
-.conteudo-card h3 {
-  font-size: 20px;
-  margin: 10px 0;
+.categorias {
+  font-size: 14px;
+  color: #AAAAAA;
+  margin: 5px 0;
 }
 
 .data-publicacao {
   font-size: 14px;
   color: #CCCCCC;
-  margin-bottom: 10px; /* Adiciona espaçamento entre a data e as categorias */
+  margin-top: 5px;
 }
 
-.categorias {
-  font-size: 12px;
-  color: #AAAAAA;
-  margin-bottom: 10px; /* Adiciona espaçamento entre as categorias e os botões */
-}
-
-.categoria {
-  display: inline-block;
-  margin-right: 5px;
+.noticia-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
 }
 
 /* Botões de ação no Card */
 .card .btn {
-  margin: 5px;
+  font-size: 14px;
+  padding: 8px 12px;
 }
 
 /* Header de Notícias */
@@ -209,7 +233,7 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px; /* Espaço entre o título e os botões */
+  gap: 10px;
   padding: 10px 0;
   position: relative;
 }
@@ -323,7 +347,6 @@ section {
   background-color: #3A3A3A;
 }
 
-/* Link do cartão */
 .categoria-card a {
   color: #FFFFFF;
   text-decoration: none;
@@ -339,7 +362,6 @@ section {
   color: #CCCCCC;
 }
 
-/* Estilo para o texto de nenhuma categoria disponível */
 .sem-categorias {
   color: #FF6B6B;
   font-weight: bold;
