@@ -1,15 +1,12 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Noticia
+from .models import Noticia, HistoricoAcesso
 from .forms import NoticiaForm
 
-# View para exibir detalhes de uma notícia
-class NoticiaDetalheView(DetailView):
-    model = Noticia
-    template_name = 'noticias/detail.html'
-    context_object_name = 'noticia'
+
 
 # View para listar as notícias
 class ListaNoticiasView(ListView):
@@ -64,3 +61,32 @@ class ExcluirNoticiaView(DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, "Notícia excluída com sucesso!")
         return super().delete(request, *args, **kwargs)
+    
+# View para exibir detalhes de uma notícia
+class NoticiaDetalheView(DetailView):
+    model = Noticia
+    template_name = 'noticias/detail.html'
+    context_object_name = 'noticia'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comments'] = Comment.objects.filter(noticia=self.object).order_by('-data_postagem')
+        context['form'] = CommentForm()
+        return context
+
+    def dispatch(self, request, *args, **kwargs):
+        # Se o usuário estiver autenticado, registra o acesso
+        if request.user.is_authenticated:
+            noticia = self.get_object()
+            HistoricoAcesso.objects.create(usuario=request.user, noticia=noticia)
+        return super().dispatch(request, *args, **kwargs)
+
+class HistoricoAcessoView(LoginRequiredMixin, ListView):
+    model = HistoricoAcesso
+    template_name = 'noticias/historico_acesso.html'
+    context_object_name = 'historico_acesso'
+    login_url = 'login'  # Redireciona para o login se o usuário não estiver autenticado
+
+    def get_queryset(self):
+        # Retorna apenas o histórico de acesso do usuário atual, ordenado pelo mais recente
+        return HistoricoAcesso.objects.filter(usuario=self.request.user).order_by('-data_acesso')

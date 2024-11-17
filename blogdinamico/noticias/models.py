@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Categoria(models.Model):
@@ -20,3 +21,10 @@ class Noticia(models.Model):
     def __str__(self):
         return self.titulo
 
+class HistoricoAcesso(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    noticia = models.ForeignKey(Noticia, on_delete=models.CASCADE)
+    data_acesso = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.usuario.username} - {self.noticia.titulo} em {self.data_acesso}'
