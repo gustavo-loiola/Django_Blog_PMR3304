@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-center">
+    <h2>Categoria: {{ categoria.nome }}</h2>
+    <div class="container-noticias">
+        <section class="lista-de-cards">
+            {% for post in posts %}
+                <article class="card">
+                    <a href="{% url 'noticias:detalhe' post.pk %}">
+                        <img src="{{ post.noticia_url|default:'https://via.placeholder.com/150' }}" alt="Imagem da Notícia: {{ post.titulo }}">
+                    </a>
+                    <div class="conteudo-card">
+                        <a href="{% url 'noticias:detalhe' post.pk %}">
+                            <h3>{{ post.titulo }}</h3>
+                        </a>
+                        <p class="resumo">{{ post.resumo }}</p>
+                        <p class="data-publicacao">Publicado em {{ post.data_postagem|date:"d/m/Y" }} — {{ post.data_postagem|timesince }} atrás</p>
+                        <div class="categorias">
+                            {% for categoria in post.categorias.all %}
+                                <a href="{% url 'noticias:detalhe_categoria' categoria.pk %}" class="categoria">{{ categoria.nome }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        </section>
+    </div>
+</div>
+{% endblock content %}

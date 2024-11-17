@@ -21,7 +21,7 @@
     <footer class="categorias-noticia">
         <p><strong>Categorias:</strong>
             {% for categoria in noticia.categorias.all %}
-                <span class="categoria">{{ categoria.nome }}</span>{% if not forloop.last %}, {% endif %}
+                <a href="{% url 'noticias:detalhe_categoria' categoria.pk %}" class="categoria">{{ categoria.nome }}</a>{% if not forloop.last %}, {% endif %}
             {% endfor %}
         </p>
     </footer>
@@ -61,7 +61,7 @@
         </form>
     </section>
 {% else %}
-    <p><a href="{% url 'login' %}">Faça login</a> para comentar.</p>
+    <p><a href="{% url 'noticias:login' %}">Faça login</a> para comentar.</p>
 {% endif %}
 
 {% endblock content %}

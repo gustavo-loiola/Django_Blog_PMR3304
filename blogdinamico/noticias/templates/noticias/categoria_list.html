@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="categoria-listagem-container">
+    <h2>Categorias</h2>
+    <div class="categoria-grid">
+        {% for categoria in categorias %}
+            <div class="categoria-card">
+                <a href="{% url 'noticias:detalhe_categoria' categoria.id %}">
+                    <h3>{{ categoria.nome }}</h3>
+                    <p>{{ categoria.noticias.count }} Notícia(s)</p>
+                </a>
+                
+            </div>
+        {% empty %}
+            <p class="sem-categorias">Nenhuma categoria disponível.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
