@@ -49,19 +49,19 @@ section {
 
 /* Contêineres Centrais */
 .container-center, .auth-container, .form-container {
-  max-width: 600px;
-  margin: 30px auto;
-  padding: 20px;
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 30px;
   background-color: #333333;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
   color: #FFFFFF;
   text-align: center;
 }
 
 /* Títulos Específicos */
 .container-center h2, .auth-container h2, .form-container h2 {
-  font-size: 24px;
+  font-size: 28px;
   margin-bottom: 20px;
   color: #FFFFFF;
 }
@@ -69,15 +69,18 @@ section {
 /* Formulários */
 .form-group {
   margin-bottom: 20px;
+  text-align: left;
 }
 
 .form-group label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
+  color: #AAAAAA;
 }
 
-.form-group input,
+.form-group input[type="text"],
+.form-group input[type="password"],
 .form-group textarea,
 .form-group select {
   width: 100%;
@@ -86,7 +89,7 @@ section {
   background-color: #2A2A2A;
   color: #FFFFFF;
   border: 1px solid #444444;
-  border-radius: 4px;
+  border-radius: 5px;
   margin-bottom: 15px;
   box-sizing: border-box;
 }
@@ -126,9 +129,23 @@ section {
 
 /* Mensagens e Erros */
 .category-limit-message, .error-message {
-  font-size: 12px;
+  font-size: 14px;
   color: #FF6B6B;
-  margin-top: 5px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.messages {
+  margin-top: 15px;
+}
+
+.messages ul {
+  padding-left: 20px;
+}
+
+.messages li {
+  color: #FF6B6B;
+  margin-bottom: 5px;
 }
 
 .messages p.success {
@@ -226,6 +243,13 @@ section {
 .card .btn {
   font-size: 14px;
   padding: 8px 12px;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
 }
 
 /* Header de Notícias */
