@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
-from .models import Noticia, Comment, HistoricoAcesso
+from .models import Noticia, Comment, HistoricoAcesso, Categoria
 from .forms import NoticiaForm, CommentForm
 
 # View para exibir detalhes de uma notícia e registrar o acesso no histórico
@@ -113,3 +113,21 @@ class RegistroView(CreateView):
     form_class = UserCreationForm
     template_name = 'noticias/registro.html'
     success_url = reverse_lazy('noticias:listar')
+
+# View para listagem de categorias
+class CategoriaListView(ListView):
+    model = Categoria
+    template_name = 'noticias/categoria_list.html'
+    context_object_name = 'categorias'
+
+# View individual de categoria para listar os posts da categoria
+class CategoriaDetailView(DetailView):
+    model = Categoria
+    template_name = 'noticias/categoria_detail.html'
+    context_object_name = 'categoria'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Lista de posts da categoria
+        context['posts'] = Noticia.objects.filter(categorias=self.object)
+        return context

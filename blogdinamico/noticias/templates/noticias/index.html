@@ -14,23 +14,25 @@
     <section class="lista-de-cards">
       {% for noticia in lista_noticias %}
       <article class="card">
-        <a href="{% url 'noticias:detalhe' noticia.id %}">
-          <img src="{{ noticia.noticia_url|default:'https://via.placeholder.com/150' }}" alt="Imagem da Notícia: {{ noticia.titulo }}" />
-        </a>
-        <div class="conteudo-card">
+        <div class="imagem-noticia">
+          <a href="{% url 'noticias:detalhe' noticia.id %}">
+            <img src="{{ noticia.noticia_url|default:'https://via.placeholder.com/150' }}" alt="Imagem da Notícia: {{ noticia.titulo }}" />
+          </a>
+        </div>
+        <div class="conteudo-noticia">
           <a href="{% url 'noticias:detalhe' noticia.id %}">
             <h3>{{ noticia.titulo }}</h3>
           </a>
           <p class="resumo">{{ noticia.resumo }}</p> <!-- Exibe o resumo da notícia -->
-          <p class="data-publicacao">
-            Publicado em {{ noticia.data_postagem|date:"d/m/Y" }} — {{ noticia.data_postagem|timesince }} atrás
-          </p>
           <div class="categorias">
-            {% for categoria in noticia.categorias.all|slice:":3" %}
+            {% for categoria in noticia.categorias.all %}
               <span class="categoria">{{ categoria.nome }}</span>{% if not forloop.last %}, {% endif %}
             {% endfor %}
           </div>
-
+          <p class="data-publicacao">
+            Publicado em {{ noticia.data_postagem|date:"d \d\e F \d\e Y" }} — há {{ noticia.data_postagem|timesince }}
+          </p>
+          
           <!-- Links para editar e excluir -->
           <div class="noticia-actions">
             <a href="{% url 'noticias:atualizar' noticia.id %}" class="btn btn-primary">Editar</a>

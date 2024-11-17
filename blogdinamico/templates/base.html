@@ -21,6 +21,7 @@
             </div>
             <ul style="list-style: none; display: flex; gap: 20px;">
                 <li><a href="{% url 'noticias:listar' %}" style="color: #FFFFFF;">Notícias</a></li>
+                <li><a href="{% url 'noticias:lista_categorias' %}">Categorias</a></li>
                 {% if user.is_authenticated %}
                     <a href="{% url 'noticias:historico_acesso' %}" style="color: #FFFFFF;">Histórico</a>
                     
